@@ -1,0 +1,55 @@
+package com.example.demo.controllers;
+
+import java.sql.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.models.DAO.IProductoDao;
+import com.example.demo.models.Entity.Producto;
+
+@Controller
+public class ProductoController {
+
+    @Autowired
+    private IProductoDao productoDao;
+
+    @GetMapping("/productos")
+    public String listar(Model model) {
+        model.addAttribute("titulo", "listado de productos");
+        model.addAttribute("productos", productoDao.findAll());
+        return "producto/listar";
+    }
+
+    @GetMapping("/productos/{id}")
+    public String eliminar(@PathVariable Integer id) {
+        productoDao.delete(id);
+        return "redirect:/productos";
+    }   
+
+    @GetMapping("/productos/crear")
+    public String crear(Model model) {
+        Producto producto = new Producto();
+        model.addAttribute("producto", producto);
+        model.addAttribute("titulo", "Formulario de Producto");
+
+        return "producto/crear";
+    }
+
+    @PostMapping("/productos/crear")
+    public String guardar(@RequestParam String nombre, @RequestParam Integer stock, @RequestParam double precio, @RequestParam Date createAt) {
+        Producto producto = new Producto();
+        producto.setNombre(nombre);
+        producto.setStock(stock);
+        producto.setPrecio(precio);
+        producto.setCreateAt(createAt);
+        productoDao.save(producto);
+        return "redirect:/productos";
+    }
+
+}
