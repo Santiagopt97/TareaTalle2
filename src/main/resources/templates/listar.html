@@ -30,11 +30,12 @@
                 <td th:text="${cliente.email}"></td>
                 <td th:text="${cliente.createAt}"></td>
                 <td>
-                    <a th:href="@{'/form/' + ${cliente.id}}" class="btn btn-primary">Editar</a>
+                    <a th:href="@{'/editar/' + ${cliente.id}}" class="btn btn-primary" data-toggle="modal" data-target="#editModal" th:onclick="'editCliente(' + ${cliente.id} + ')'">Editar</a>
                     <a th:href="@{'/eliminar/' + ${cliente.id}}" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         </tbody>
     </table>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
