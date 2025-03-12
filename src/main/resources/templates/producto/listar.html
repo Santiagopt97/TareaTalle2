@@ -11,6 +11,8 @@
         <h1 th:text="${titulo}"></h1>
         <a th:href="@{/productos/crear}" class="btn btn-primary">Nuevo producto</a>
     </div>
+       <!-- Mostrar mensaje de error si está presente -->
+       <div th:if="${param.error}" th:text="${param.error}" class="alert alert-danger"></div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -30,7 +32,7 @@
                 <td th:text="${producto.precio}"></td>
                 <td th:text="${producto.createAt}"></td>
                 <td>
-                    <a th:href="@{'/productos/editar/' + ${producto.id}}" class="btn btn-primary" data-toggle="modal" data-target="#editModal" th:onclick="'editProducto(' + ${producto.id} + ')'">Editar</a>
+                    <a th:href="@{'/productos/editar/' + ${producto.id}}" class="btn btn-primary" >Editar</a>
                     <a th:href="@{'/productos/' + ${producto.id}}" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>

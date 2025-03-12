@@ -46,4 +46,10 @@ public class ClienteDaoImp implements IClienteDao {
     public Cliente findOne(int id) {
         return em.find(Cliente.class, id);
     }
+
+    @Override
+    @Transactional
+    public void update(Cliente cliente) {
+        em.merge(cliente);
+    }
 }

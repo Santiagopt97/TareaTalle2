@@ -37,13 +37,31 @@ public class ProductoController {
         Producto producto = new Producto();
         model.addAttribute("producto", producto);
         model.addAttribute("titulo", "Formulario de Producto");
-
         return "producto/crear";
     }
 
-    @PostMapping("/productos/crear")
-    public String guardar(@RequestParam String nombre, @RequestParam Integer stock, @RequestParam double precio, @RequestParam Date createAt) {
-        Producto producto = new Producto();
+    @GetMapping("/productos/editar/{id}")
+    public String editar(@PathVariable Integer id, Model model) {
+        Producto producto = productoDao.findOne(id);
+        if (producto == null) {
+            return "redirect:/productos?error=Producto no encontrado";
+        }
+        model.addAttribute("producto", producto);
+        model.addAttribute("titulo", "Editar Producto");
+        return "producto/crear";
+    }
+
+    @PostMapping("/productos/guardar")
+    public String guardar(@RequestParam(required = false) Integer id, @RequestParam String nombre, @RequestParam Integer stock, @RequestParam double precio, @RequestParam Date createAt) {
+        Producto producto;
+        if (id != null && id > 0) {
+            producto = productoDao.findOne(id);
+            if (producto == null) {
+                return "redirect:/productos?error=Producto no encontrado";
+            }
+        } else {
+            producto = new Producto();
+        }
         producto.setNombre(nombre);
         producto.setStock(stock);
         producto.setPrecio(precio);
@@ -51,5 +69,7 @@ public class ProductoController {
         productoDao.save(producto);
         return "redirect:/productos";
     }
+
+    
 
 }

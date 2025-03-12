@@ -34,9 +34,29 @@ public class ClienteController {
         return "form";
     }
 
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable int id, Model model) {
+        Cliente cliente = clienteDao.findOne(id);
+        if (cliente == null) {
+            return "redirect:/listar?error=Cliente no encontrado";
+        }
+        model.addAttribute("cliente", cliente);
+        model.addAttribute("titulo", "Editar Cliente");
+        return "form";
+    }
+
     @PostMapping("/form")
-    public String guardar(@RequestParam Long id, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam Date createAt) {
-        Cliente cliente = new Cliente();
+    public String guardar(@RequestParam(required = false) Long id, @RequestParam String nombre,
+            @RequestParam String apellido, @RequestParam String email, @RequestParam Date createAt) {
+        Cliente cliente;
+        if (id != null && id > 0) {
+            cliente = clienteDao.findOne(id.intValue());
+            if (cliente == null) {
+                return "redirect:/listar?error=Cliente no encontrado";
+            }
+        } else {
+            cliente = new Cliente();
+        }
         cliente.setNombre(nombre);
         cliente.setApellido(apellido);
         cliente.setEmail(email);
@@ -54,4 +74,3 @@ public class ClienteController {
         return "redirect:/listar";
     }
 }
-

@@ -9,4 +9,5 @@ public interface IProductoDao {
     public void save(Producto producto);
     public void delete(int id);
     public Producto findOne(int id);
+    public void update(Producto producto);
 }

@@ -9,4 +9,5 @@ public interface IClienteDao {
     public void save(Cliente cliente);
     public void delete(int id);
     public Cliente findOne(int id);
+    public void update(Cliente cliente);
 }

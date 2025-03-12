@@ -47,4 +47,10 @@ public class ProductoDaoImp implements IProductoDao {
         }
     }
 
+    @Override
+    @Transactional
+    public void update(Producto producto) {
+        em.merge(producto);
+    }
+
 }
