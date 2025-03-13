@@ -52,4 +52,11 @@ public class ClienteDaoImp implements IClienteDao {
     public void update(Cliente cliente) {
         em.merge(cliente);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Cliente findByEmail(String email) {
+        return (Cliente) em.createQuery("from Cliente where email = :email").setParameter("email", email)
+                .getSingleResult();
+    }
 }

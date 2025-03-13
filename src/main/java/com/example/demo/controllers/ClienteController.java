@@ -49,6 +49,12 @@ public class ClienteController {
     public String guardar(@RequestParam(required = false) Long id, @RequestParam String nombre,
             @RequestParam String apellido, @RequestParam String email, @RequestParam Date createAt) {
         Cliente cliente;
+        if (email != null && !email.isEmpty()) {
+            cliente = clienteDao.findByEmail(email);
+            if (cliente != null) {
+                return "redirect:/listar?error=Correo en uso";
+            }    
+        }
         if (id != null && id > 0) {
             cliente = clienteDao.findOne(id.intValue());
             if (cliente == null) {

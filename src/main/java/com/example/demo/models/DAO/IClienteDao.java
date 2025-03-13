@@ -10,4 +10,6 @@ public interface IClienteDao {
     public void delete(int id);
     public Cliente findOne(int id);
     public void update(Cliente cliente);
+    public Cliente findByEmail(String email);
+
 }
