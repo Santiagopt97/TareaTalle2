@@ -73,5 +73,5 @@ public class Cliente implements Serializable{
         this.createAt = createAt;
     }
     
-    private static final long serialversionUID =1L;
+    //private static final long serialversionUID =1L;
 }
