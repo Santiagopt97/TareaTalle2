@@ -56,13 +56,13 @@ public class ProductoController {
     @PostMapping("/productos/guardar")
     public String guardar(@RequestParam(required = false) Integer id, @RequestParam String nombre, @RequestParam Integer stock, @RequestParam double precio, @RequestParam Date createAt) {
         if (precio < 0) {
-            return "redirect:/productos?error=El precio no puede ser negativo";
+            return "redirect:/productos/crear?error=El precio no puede ser negativo";
         }
         if (stock < 0) {
-            return "redirect:/productos?error=El stock no puede ser negativo";
+            return "redirect:/productos/crear?error=El stock no puede ser negativo";
         }
         if (createAt.after(currentDate)) {
-            return "redirect:/productos?error=La fecha de creación no puede ser futura";
+            return "redirect:/productos/crear?error=La fecha de creacion no puede ser mayor a la fecha actual";
         }
         
         Producto producto;
