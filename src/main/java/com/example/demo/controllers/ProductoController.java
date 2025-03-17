@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ public class ProductoController {
 
     @Autowired
     private IProductoDao productoDao;
+    private Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
 
     @GetMapping("/productos")
     public String listar(Model model) {
@@ -53,6 +55,16 @@ public class ProductoController {
 
     @PostMapping("/productos/guardar")
     public String guardar(@RequestParam(required = false) Integer id, @RequestParam String nombre, @RequestParam Integer stock, @RequestParam double precio, @RequestParam Date createAt) {
+        if (precio < 0) {
+            return "redirect:/productos?error=El precio no puede ser negativo";
+        }
+        if (stock < 0) {
+            return "redirect:/productos?error=El stock no puede ser negativo";
+        }
+        if (createAt.after(currentDate)) {
+            return "redirect:/productos?error=La fecha de creación no puede ser futura";
+        }
+        
         Producto producto;
         if (id != null && id > 0) {
             producto = productoDao.findOne(id);
