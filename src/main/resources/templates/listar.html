@@ -41,29 +41,33 @@
                     <td th:text="${cliente.email}"></td>
                     <td th:text="${cliente.createAt}"></td>
                     <td>
+                        <!-- Botón para editar -->
                         <a th:href="@{'/editar/' + ${cliente.id}}" class="btn btn-primary">Editar</a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            
+                        <!-- Botón para abrir el modal de eliminación -->
+                        <button type="button" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#modalEliminar'+${cliente.id}">
                             Eliminar
                         </button>
-                        <a th:href="@{'/eliminar/' + ${cliente.id}}" class="btn btn-danger">Eliminar</a>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+            
+                        <!-- Modal de confirmación de eliminación -->
+                        <div class="modal fade" th:id="'modalEliminar'+${cliente.id}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        ¿Estás seguro de que deseas eliminar al cliente <span th:text="${cliente.nombre + ' ' + cliente.apellido}"></span>?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <!-- Botón para cerrar el modal -->
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <!-- Botón para confirmar la eliminación -->
+                                        <a th:href="@{'/eliminar/' + ${cliente.id}}" class="btn btn-danger">Eliminar</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,6 +96,9 @@
             </div>
         </div>
     </footer>
+    <!-- Bootstrap JS (con dependencia de Popper.js y jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
