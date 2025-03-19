@@ -56,7 +56,9 @@ public class ClienteDaoImp implements IClienteDao {
     @Override
     @Transactional(readOnly = true)
     public Cliente findByEmail(String email) {
-        return (Cliente) em.createQuery("from Cliente where email = :email").setParameter("email", email)
-                .getSingleResult();
+        List<Cliente> clientes = em.createQuery("from Cliente where email = :email", Cliente.class)
+                .setParameter("email", email)
+                .getResultList();       //getSingleResult()
+        return clientes.isEmpty() ? null : clientes.get(0);
     }
 }
