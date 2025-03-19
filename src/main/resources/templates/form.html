@@ -16,7 +16,7 @@
      <main>
          <div class="container">
              <h1 th:text="${titulo}"></h1>
-             <form th:action="@{/form}" th:object="${cliente}" method="post">
+             <form th:action="@{/form}" th:object="${cliente}" method="post" onsubmit="return validarFecha()">
                  <input type="hidden" th:field="*{id}">
                  <div class="form-group">
                      <label for="nombre">Nombre</label>
@@ -52,5 +52,22 @@
         </div>
     </footer>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validarFecha() {
+            // Obtener la fecha ingresada por el usuario
+            const fechaIngresada = document.getElementById('createAt').value;
+
+            // Obtener la fecha actual en formato YYYY-MM-DD
+            const fechaActual = new Date().toISOString().split('T')[0];
+
+            // Comparar las fechas
+            if (fechaIngresada > fechaActual) {
+                alert("Error: La fecha no puede ser mayor a la fecha actual.");
+                return false; // Evita que se envíe el formulario
+            }
+
+            return true; // Permite enviar el formulario
+        }
+    </script>
 </body>
 </html>
