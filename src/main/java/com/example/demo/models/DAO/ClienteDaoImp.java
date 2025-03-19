@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.models.Entity.Cliente;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 
 @Repository
