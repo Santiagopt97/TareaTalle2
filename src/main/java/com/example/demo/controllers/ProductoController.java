@@ -61,9 +61,6 @@ public class ProductoController {
         if (stock < 0) {
             return "redirect:/productos/crear?error=El stock no puede ser negativo";
         }
-        if (createAt.after(currentDate)) {
-            return "redirect:/productos/crear?error=La fecha de creacion no puede ser mayor a la fecha actual";
-        }
         
         Producto producto;
         if (id != null && id > 0) {
