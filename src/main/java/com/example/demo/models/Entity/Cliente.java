@@ -2,25 +2,31 @@ package com.example.demo.models.Entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nombre,apellido,email;
+    private String nombre, apellido, email;
 
-    @Column(name="create_at")
+    @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Encabezado> encabezados;
 
     public Cliente() {
     }
@@ -72,6 +78,14 @@ public class Cliente implements Serializable{
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
-    
-    //private static final long serialversionUID =1L;
+
+    public List<Encabezado> getEncabezados() {
+        return encabezados;
+    }
+
+    public void setEncabezados(List<Encabezado> encabezados) {
+        this.encabezados = encabezados;
+    }
+
+    // private static final long serialversionUID = 1L;
 }
