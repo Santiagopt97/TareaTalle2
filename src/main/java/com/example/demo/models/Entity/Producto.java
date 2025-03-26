@@ -8,11 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-public class Producto implements Serializable{
+public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,9 +25,13 @@ public class Producto implements Serializable{
 
     private double precio;
 
-    @Column(name="create_at")
+    @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
+
+    @ManyToOne
+    @JoinColumn(name = "detalle_id", foreignKey = @jakarta.persistence.ForeignKey(name = "fk_detalle"))
+    private Detalles detalle;
 
     public Producto(int id, String nombre, int stock, double precio, Date createAt) {
         this.id = id;
@@ -76,6 +82,14 @@ public class Producto implements Serializable{
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    public Detalles getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(Detalles detalle) {
+        this.detalle = detalle;
     }
 
 }
