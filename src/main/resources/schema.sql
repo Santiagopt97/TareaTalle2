@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS encabezado (
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS detalles (
+CREATE TABLE IF NOT EXISTS detalle (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cantidad INT NOT NULL,
     precio DOUBLE NOT NULL,
@@ -33,5 +33,5 @@ CREATE TABLE IF NOT EXISTS producto (
     precio DOUBLE NOT NULL,
     create_at DATE NOT NULL,
     detalle_id INT,
-    FOREIGN KEY (detalle_id) REFERENCES detalles(id) ON DELETE SET NULL
+    FOREIGN KEY (detalle_id) REFERENCES detalle(id) ON DELETE SET NULL
 );
