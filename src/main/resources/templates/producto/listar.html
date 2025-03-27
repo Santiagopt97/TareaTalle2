@@ -10,75 +10,63 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="d-flex navbar navbar-light bg-light">
-            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/listar}">Clientes</a>
-            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/productos}">Productos</a>
+            <a class="btn btn-outline-secondary nav-link text-reset" th:href="@{/listar}">Clientes</a>
+            <a class="btn btn-outline-secondary nav-link text-reset" th:href="@{/productos}">Productos</a>
+            <a class="btn btn-outline-secondary nav-link text-reset" th:href="@{/compras}">Compras</a>
         </nav>
     </header>
     <main class="flex-grow-1">
 
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column align-items-center justify-content-center text-center">
             <h1 th:text="${titulo}"></h1>
-            <a th:href="@{/productos/crear}" class="btn btn-primary">Nuevo producto</a>
+            <a th:href="@{/productos/crear}" class="btn btn-primary mb-3 ml-3">Nuevo producto</a>
         </div>
         <!-- Mostrar mensaje de error si está presente -->
-        <div th:if="${param.error}" th:text="${param.error}" class="alert alert-danger"></div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>nombre</th>
-                    <th>stock</th>
-                    <th>precio</th>
-                    <th>fecha</th>
-                    <th>acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="producto : ${productos}">
-                    <td th:text="${producto.id}"></td>
-                    <td th:text="${producto.nombre}"></td>
-                    <td th:text="${producto.stock}"></td>
-                    <td th:text="${producto.precio}"></td>
-                    <td th:text="${producto.createAt}"></td>
-                    <td>
-                        <!-- Botón para editar -->
-                        <a th:href="@{'/productos/editar/' + ${producto.id}}" class="btn btn-primary" >Editar</a>
-
-                        <!-- Botón para abrir el modal de eliminación -->
+        <div th:if="${param.error}" th:text="${param.error}" class="alert alert-danger text-center"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-4" th:each="producto : ${productos}">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${producto.nombre}"></h5>
+                        <p class="card-text">
+                            <strong>ID:</strong> <span th:text="${producto.id}"></span><br>
+                            <strong>Stock:</strong> <span th:text="${producto.stock}"></span><br>
+                            <strong>Precio:</strong> <span th:text="${producto.precio}"></span><br>
+                            <strong>Fecha:</strong> <span th:text="${producto.createAt}"></span>
+                        </p>
+                        <a th:href="@{'/productos/editar/' + ${producto.id}}" class="btn btn-primary">Editar</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" th:attr="data-target='#modalEliminar'+${producto.id}">
                             Eliminar
                         </button>
-                        <!--<a th:href="@{'/productos/' + ${producto.id}}" class="btn btn-danger">Eliminar</a> -->
-                        <!-- Modal de confirmación de eliminación -->
-                        <div class="modal fade" th:id="'modalEliminar'+${producto.id}" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        ¿Estás seguro de que deseas eliminar al cliente <span th:text="${producto.nombre}"></span>?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <!-- Botón para cerrar el modal -->
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <!-- Botón para confirmar la eliminación -->
-                                        <a th:href="@{'/productos/' + ${producto.id}}" class="btn btn-danger">Eliminar</a>
-                                    </div>
-                                </div>
+                        <a th:href="@{'/productos/compra/'}" class="btn btn-success">Comprar</a>
+                    </div>
+                </div>
+                <!-- Modal de confirmación de eliminación -->
+                <div class="modal fade" th:id="'modalEliminar'+${producto.id}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que deseas eliminar el producto <span th:text="${producto.nombre}"></span>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <a th:href="@{'/productos/' + ${producto.id}}" class="btn btn-danger">Eliminar</a>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-    <footer class="mt-auto bg-light py-3">
-        <div class="d-flex justify-content-between container">
+    <footer class="bg-light mt-auto py-3">
+        <div class="container d-flex justify-content-between">
             <p>© 2024 Santiago Pineda</p>
             <div>
                 <a href="https://github.com/Santiagopt97/TareaTalle2" class="text-dark" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">

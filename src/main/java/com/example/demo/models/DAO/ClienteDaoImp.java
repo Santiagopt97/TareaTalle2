@@ -61,4 +61,13 @@ public class ClienteDaoImp implements IClienteDao {
                 .getResultList();       //getSingleResult()
         return clientes.isEmpty() ? null : clientes.get(0);
     }
+
+    @Override
+    public Cliente findByEmailAndPassword(String email, String password) {
+        List<Cliente> clientes = em.createQuery("from Cliente where email = :email and password = :password", Cliente.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();       //getSingleResult()
+        return clientes.isEmpty() ? null : clientes.get(0);
+    }
 }

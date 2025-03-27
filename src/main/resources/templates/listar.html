@@ -31,6 +31,7 @@
                     <th>email</th>
                     <th>fecha</th>
                     <th>acciones</th>
+                    <th>role</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@
                     <td th:text="${cliente.apellido}"></td>
                     <td th:text="${cliente.email}"></td>
                     <td th:text="${cliente.createAt}"></td>
+                    <td th:text="${cliente.role}"></td>
                     <td>
                         <!-- Botón para editar -->
                         <a th:href="@{'/editar/' + ${cliente.id}}" class="btn btn-primary">Editar</a>

@@ -11,5 +11,5 @@ public interface IClienteDao {
     public Cliente findOne(int id);
     public void update(Cliente cliente);
     public Cliente findByEmail(String email);
-
+    public Cliente findByEmailAndPassword(String email, String password);
 }
