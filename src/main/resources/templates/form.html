@@ -22,8 +22,8 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="d-flex navbar navbar-light bg-light">
-            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/listar}">Clientes</a>
-            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/productos}">Productos</a>
+            <a class="btn btn-outline-secondary nav-link text-reset" th:href="@{/listar}">Clientes</a>
+            <a class="btn btn-outline-secondary nav-link text-reset" th:href="@{/productos}">Productos</a>
         </nav>
     </header>
     <main>
@@ -44,6 +44,10 @@
                     <input type="email" class="form-control" id="email" th:field="*{email}" required>
                 </div>
                 <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}" th:value="*{password}" required>
+                </div>
+                <div class="form-group">
                     <label for="createAt">Fecha</label>
                     <input type="date" class="form-control" id="createAt" th:field="*{createAt}" required>
                     <!-- Mensaje de error -->
@@ -51,12 +55,19 @@
                         La fecha no puede ser mayor a la fecha actual.
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="role">Rol</label>
+                    <select class="form-control" id="role" th:field="*{role}" required>
+                        <option value="USER">USER</option>
+                        <option value="ADMIN">ADMIN</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Guardar cambios</button>
             </form>
         </div>
     </main>
-    <footer class="mt-auto bg-light py-3">
-        <div class="d-flex justify-content-between container">
+    <footer class="bg-light mt-auto py-3">
+        <div class="container d-flex justify-content-between">
             <p>© 2024 Santiago Pineda</p>
             <div>
                 <a href="https://github.com/Santiagopt97/TareaTalle2" class="text-dark" target="_blank">

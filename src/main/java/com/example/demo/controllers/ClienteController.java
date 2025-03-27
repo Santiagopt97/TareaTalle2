@@ -47,7 +47,7 @@ public class ClienteController {
 
     @PostMapping("/form")
     public String guardar(@RequestParam(required = false) Long id, @RequestParam String nombre,
-            @RequestParam String apellido, @RequestParam String email, @RequestParam Date createAt) {
+            @RequestParam String apellido, @RequestParam String email,String password ,@RequestParam Date createAt, @RequestParam String role) {
         Cliente cliente;
         if (id == null || id == 0) {
             cliente = clienteDao.findByEmail(email);
@@ -64,7 +64,9 @@ public class ClienteController {
         cliente.setNombre(nombre);
         cliente.setApellido(apellido);
         cliente.setEmail(email);
+        cliente.setPassword(password);
         cliente.setCreateAt(createAt);
+        cliente.setRole(role);
         clienteDao.save(cliente);
         return "redirect:/listar";
     }
