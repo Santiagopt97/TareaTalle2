@@ -29,7 +29,7 @@ public class LoginController {
         if (cliente == null) {
             return "redirect:/login?error=Correo o contrasena incorrectos";
         }
-        return "redirect:/listar";
+        return "redirect:/productos";
     }
 
 }

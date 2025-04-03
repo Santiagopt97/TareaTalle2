@@ -2,10 +2,9 @@ package com.example.demo.models.DAO;
 
 import java.util.List;
 
-import com.example.demo.models.Entity.Compra;
 import com.example.demo.models.Entity.Detalles;
 
-public interface IdetallesDao {
+public interface IDetallesDao {
 
     public List<Detalles> findAll();
     
