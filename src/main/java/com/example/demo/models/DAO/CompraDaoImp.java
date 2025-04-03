@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.example.demo.models.Entity.Compra;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
+@Repository
 public class CompraDaoImp implements ICompraDao {
     
     @PersistenceContext

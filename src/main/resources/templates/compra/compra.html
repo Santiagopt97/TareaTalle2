@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Compra</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Detalles de la Compra</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Información de la Compra</h2>
+            <p><strong>ID de Compra:</strong> {{ compra.id }}</p>
+            <p><strong>Fecha:</strong> {{ compra.fecha }}</p>
+            <p><strong>Total:</strong> ${{ compra.total }}</p>
+        </section>
+        <section>
+            <h2>Detalles de los Productos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detalle in compra.detalles %}
+                    <tr>
+                        <td>{{ detalle.producto }}</td>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>${{ detalle.precioUnitario }}</td>
+                        <td>${{ detalle.subtotal }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Mi Tienda</p>
+    </footer>
+</body>
+</html>

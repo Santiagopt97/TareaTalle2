@@ -10,7 +10,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Repository
-public class DetallesDaoImp implements IDetallesDao{
+public class DetallesDaoImp implements IDetallesDao {
 
     @PersistenceContext
     private EntityManager em;
@@ -25,16 +25,19 @@ public class DetallesDaoImp implements IDetallesDao{
     @Override
     @Transactional
     public void Save(Detalles detalle) {
-        em.persist(detalle);
+        if (detalle.getId() != 0) {
+            em.merge(detalle);
+        } else {
+            em.persist(detalle);
+        }
     }
+
     @Override
     @Transactional
     public void delete(Detalles detalle) {
-        Detalles detalle2 = em.find(Detalles.class, detalle.getId());
-        if (detalle2 != null) {
-            em.remove(detalle2);
-        }
+        em.remove(em.contains(detalle) ? detalle : em.merge(detalle));
     }
+
     @Override
     @Transactional(readOnly = true)
     public Detalles search(Long id) {
@@ -47,4 +50,8 @@ public class DetallesDaoImp implements IDetallesDao{
         em.merge(detalle);
     }
 
+    @Transactional(readOnly = true)
+    public Detalles findById(Long id) {
+        return em.find(Detalles.class, id);
+    }
 }

@@ -70,4 +70,10 @@ public class ClienteDaoImp implements IClienteDao {
                 .getResultList();       //getSingleResult()
         return clientes.isEmpty() ? null : clientes.get(0);
     }
+    @Override
+    @Transactional
+    public Cliente search(int id) {
+        return em.find(Cliente.class, id);
+
+    }
 }
