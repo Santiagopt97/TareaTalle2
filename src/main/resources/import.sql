@@ -4,6 +4,12 @@ Insert into cliente(nombre,apellido,email,password,role,create_at) values('simon
 Insert into cliente(nombre,apellido,email,password,role,create_at) values('ana','gomez','ag@gmail.com','pass123','USER','2023-10-18');
 Insert into cliente(nombre,apellido,email,password,role,create_at) values('laura','martinez','lm@gmail.com','secure','ADMIN','2023-10-19');
 
+-- Add detalle_id column to producto table
+ALTER TABLE producto ADD COLUMN detalle_id INT;
+
+-- Add foreign key constraint for detalle_id
+ALTER TABLE producto ADD CONSTRAINT fk_detalle FOREIGN KEY (detalle_id) REFERENCES detalle(id);
+
 Insert into producto(nombre,stock,precio,create_at) values('producto1',15,5500,'2023-10-15');
 Insert into producto(nombre,stock,precio,create_at) values('producto2',9,10200,'2023-10-16');
 Insert into producto(nombre,stock,precio,create_at) values('producto3',2,250,'2023-10-17');
