@@ -6,7 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,9 +18,6 @@ public class Compra {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "cliente_id")
-    private int idCliente;
-
     @Column(name = "fecha")
     private String fecha;
 
@@ -29,15 +27,16 @@ public class Compra {
     @Column(name = "descuento")
     private double descuento;
 
-    @OneToOne(mappedBy = "cliente",cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    public Compra(int id, int idCliente, String fecha, double total, double descuento) {
+    public Compra(int id, String fecha, double total, double descuento, Cliente cliente) {
         this.id = id;
-        this.idCliente = idCliente;
         this.fecha = fecha;
         this.total = total;
         this.descuento = descuento;
+        this.cliente = cliente;
     }
 
     public Compra() {
@@ -49,14 +48,6 @@ public class Compra {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
     }
 
     public String getFecha() {
@@ -83,5 +74,11 @@ public class Compra {
         this.descuento = descuento;
     }
 
-    
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

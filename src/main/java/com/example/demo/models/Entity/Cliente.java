@@ -36,6 +36,9 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Encabezado> encabezados;
 
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Compra> compras;
+
     public Cliente() {
     }
 
@@ -111,6 +114,14 @@ public class Cliente implements Serializable {
 
     public void setEncabezados(List<Encabezado> encabezados) {
         this.encabezados = encabezados;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 
     // private static final long serialversionUID = 1L;
