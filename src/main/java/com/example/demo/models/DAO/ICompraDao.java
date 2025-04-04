@@ -15,5 +15,7 @@ public interface ICompraDao {
     public void delete(Compra compra);
 
     public void update(Compra compra);
+
+    public void search(int id);
     
 }

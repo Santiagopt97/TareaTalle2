@@ -48,5 +48,11 @@ public class CompraDaoImp implements ICompraDao {
     public void update(Compra compra) {
         em.merge(compra);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void search(int id) {
+        em.find(Compra.class, id);
+    }
     
 }

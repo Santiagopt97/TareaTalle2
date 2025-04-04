@@ -30,17 +30,24 @@ public class CompraController {
         model.addAttribute("titulo", "Compras");
         return "compra/compra";
     }
-    @GetMapping("/compras")
-    public String crearCompra(@RequestParam(name = "cliente_id", required = true) int id, Model model) {
-        model.addAttribute("encab", "Compras");
-        model.addAttribute("cliente", clienteDao.search(id));
-        model.addAttribute("titulo", "Compra");
-        model.addAttribute("titulo2", "Comprador");
-        Compra compra = new Compra();
-        compraDao.Save(compra);
-        model.addAttribute("compra", compra);
-        return "compra/compra";
+
+    @GetMapping("/compras/crear")
+    public String crearCompra(Model model) {
+        model.addAttribute("encab", "Crear Compra");
+        model.addAttribute("clientes", clienteDao.findAll());
+        model.addAttribute("productos", productoDao.findAll());
+        return "compra/crearCompra";
     }
-    
+    @GetMapping("/compras/guardar")
+    public String guardarCompra(@RequestParam("clienteId") Long clienteId, @RequestParam("fecha") String fecha,
+            @RequestParam("total") double total, @RequestParam("descuento") double descuento) {
+        Compra compra = new Compra();
+        compra.setFecha(fecha);
+        compra.setTotal(total);
+        compra.setDescuento(descuento);
+        compra.setCliente(clienteDao.search(clienteId.intValue()));
+        compraDao.Save(compra);
+        return "redirect:/compras"; 
+    }
     
 }

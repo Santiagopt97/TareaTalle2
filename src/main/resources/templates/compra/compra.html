@@ -1,48 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles de la Compra</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title th:text="${titulo}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <h1>Detalles de la Compra</h1>
+        <nav class="d-flex navbar navbar-light bg-light">
+            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/compras}">Compras</a>
+            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/clientes}">Clientes</a>
+            <a class="nav-link text-reset btn btn-outline-secondary" th:href="@{/productos}">Productos</a>
+        </nav>
     </header>
     <main>
-        <section>
-            <h2>Información de la Compra</h2>
-            <p><strong>ID de Compra:</strong> {{ compra.id }}</p>
-            <p><strong>Fecha:</strong> {{ compra.fecha }}</p>
-            <p><strong>Total:</strong> ${{ compra.total }}</p>
-        </section>
-        <section>
-            <h2>Detalles de los Productos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio Unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for detalle in compra.detalles %}
-                    <tr>
-                        <td>{{ detalle.producto }}</td>
-                        <td>{{ detalle.cantidad }}</td>
-                        <td>${{ detalle.precioUnitario }}</td>
-                        <td>${{ detalle.subtotal }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 th:text="${titulo}"></h1>
+            <a th:href="@{/compras/crear}" class="btn btn-primary">Nueva Compra</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="compra : ${compras}">
+                    <td th:text="${compra.id}"></td>
+                    <td th:text="${compra.fecha}"></td>
+                    <td th:text="${compra.total}"></td>
+                    <td>
+                        <a th:href="@{'/compras/detalle?id=' + ${compra.id}}" class="btn btn-info btn-sm">Ver Detalle</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" th:attr="data-target='#modalEliminar'+${compra.id}">
+                            Eliminar
+                        </button>
+                        <div class="modal fade" th:id="'modalEliminar'+${compra.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Eliminación</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Estás seguro de que deseas eliminar la compra con ID <span th:text="${compra.id}"></span>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <a th:href="@{'/compras/eliminar?id=' + ${compra.id}}" class="btn btn-danger">Eliminar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </main>
-    <footer>
-        <p>&copy; 2023 Mi Tienda</p>
+    <footer class="mt-auto bg-light py-3">
+        <div class="d-flex justify-content-between container">
+            <p>&copy; 2024 Mi Tienda</p>
+        </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
