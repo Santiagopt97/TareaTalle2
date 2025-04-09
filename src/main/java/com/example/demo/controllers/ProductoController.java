@@ -21,6 +21,12 @@ public class ProductoController {
     private IProductoDao productoDao;
     private Date currentDate = new Date(Calendar.getInstance().getTime().getTime());
 
+    @GetMapping("/comprar")
+    public String mostrarCompra() {
+        
+        return "compra/compra"; // Path to comprar.html in the templates directory
+    }
+
     @GetMapping("/productos")
     public String listar(Model model) {
         model.addAttribute("titulo", "listado de productos");
